@@ -7,6 +7,8 @@ function love.load(arg)
 
     rgbByte = lmat.colorFromBytes
 
+    update = true
+
     tela = {}
     tela.c, tela.l = lgrafico.getDimensions()
 
@@ -57,6 +59,8 @@ function love.load(arg)
 
     function cobra:update(dt)
 
+        local antx, anty = self.x, self.y
+
         self.x = self.x +self.vx *dt
         self.y = self.y +self.vy *dt
         
@@ -75,11 +79,27 @@ function love.load(arg)
             self.y = tela.lt -1
             self.vy = 0
         end
+
+        if #self.corpo > 0 then
+            if math.floor(antx) ~= math.floor(self.x) then
+                table.remove(self.corpo)
+                table.insert(self.corpo, 1, {x = antx, y = anty})
+            end
+            if math.floor(anty) ~= math.floor(self.y) then
+                table.remove(self.corpo)
+                table.insert(self.corpo, 1, {x = antx, y = anty})
+            end
+        end
+
     end
 
     function cobra:draw()
         lgrafico.setColor(rgbByte({0, 255, 0}))
         lgrafico.rectangle("fill", math.floor(self.x) *self.c, math.floor(self.y) *self.c, self.c, self.c, 8)
+        lgrafico.setColor(rgbByte({0, 255, 0, 64}))
+        for i = 1, #self.corpo do
+            lgrafico.rectangle("fill", math.floor(self.corpo[i].x) *self.c, math.floor(self.corpo[i].y) *self.c, self.c, self.c, 8)
+        end
     end
 
     comida = {}
@@ -90,9 +110,9 @@ function love.load(arg)
     function comida:update(cobra)
 
         if math.floor(self.x) == math.floor(cobra.x) and math.floor(self.y) == math.floor(cobra.y) then
-            self.x = lmat.random(tela.ct)
-            self.y = lmat.random(tela.lt)
-            --aumenta o corpo da cobra
+            self.x = lmat.random(tela.ct -1)
+            self.y = lmat.random(tela.lt -1)
+            table.insert(cobra.corpo, 1, {x = self.x, y = self.y})
         end
 
     end
@@ -105,6 +125,10 @@ function love.load(arg)
 end
 
 function love.update(dt)
+
+    if not update then
+        return
+    end
 
     cobra:update(dt)
     comida:update(cobra)
@@ -120,7 +144,9 @@ end
 
 function love.keypressed(tecla, cod, repeticao)
 
-    if tecla == "f5" then
+    if tecla == "f1" then
+        update = not update
+    elseif tecla == "f5" then
         love.load(arg)
     end
 
