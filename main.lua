@@ -1,3 +1,11 @@
+--[[
+
+    Jogo Cobra
+
+    # Tentar a ideia de manter todo o corpo no corpo, ou seja, sem a separação da cabeça e corpo.
+
+]]--
+
 function love.load(arg)
 
     if arg[#arg] == "-debug" then require("mobdebug").start() end -- Debug para ZeroBrane Studio IDE Utilize; Argumento - arg esta disponivel global.
@@ -112,7 +120,12 @@ function love.load(arg)
         if math.floor(self.x) == math.floor(cobra.x) and math.floor(self.y) == math.floor(cobra.y) then
             self.x = lmat.random(tela.ct -1)
             self.y = lmat.random(tela.lt -1)
-            table.insert(cobra.corpo, 1, {x = self.x, y = self.y})
+            
+            if #cobra.corpo > 0 then
+                table.insert(cobra.corpo, {x = cobra.corpo[#cobra.corpo].x, y = cobra.corpo[#cobra.corpo].y})
+            else
+                table.insert(cobra.corpo, {x = self.x, y = self.y})
+            end
         end
 
     end
