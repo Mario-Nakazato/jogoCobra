@@ -88,17 +88,34 @@ function love.load(arg)
             self.vy = 0
         end
 
-        if #self.corpo > 0 then
-            if math.floor(antx) ~= math.floor(self.x) then
-                table.remove(self.corpo)
-                table.insert(self.corpo, 1, {x = antx, y = anty})
-            end
-            if math.floor(anty) ~= math.floor(self.y) then
-                table.remove(self.corpo)
-                table.insert(self.corpo, 1, {x = antx, y = anty})
+        for i = 1, #self.corpo do
+            if math.floor(self.x) == math.floor(self.corpo[i].x) and math.floor(self.y) == math.floor(self.corpo[i].y) then
+                print("Aqui")
+                self.x, self.y = antx, anty
+                self.vx = 0
+                self.vy = 0
+                return
             end
         end
 
+        if math.floor(antx) ~= math.floor(self.x) or math.floor(anty) ~= math.floor(self.y) then
+            if #self.corpo > 0 then
+                table.remove(self.corpo)
+                table.insert(self.corpo, 1, {x = antx, y = anty})
+            end
+            if corpo then
+                table.insert(self.corpo, corpo)
+                corpo = nil
+            end
+        end
+
+        if comida:update(self) then
+            if #self.corpo > 0 then
+                corpo = {x = self.corpo[#self.corpo].x, y = self.corpo[#self.corpo].y}
+            else
+                corpo = {x = comida.x, y = comida.y}
+            end
+        end
     end
 
     function cobra:draw()
@@ -116,18 +133,12 @@ function love.load(arg)
     comida.c = 32
 
     function comida:update(cobra)
-
         if math.floor(self.x) == math.floor(cobra.x) and math.floor(self.y) == math.floor(cobra.y) then
             self.x = lmat.random(tela.ct -1)
             self.y = lmat.random(tela.lt -1)
-            
-            if #cobra.corpo > 0 then
-                table.insert(cobra.corpo, {x = cobra.corpo[#cobra.corpo].x, y = cobra.corpo[#cobra.corpo].y})
-            else
-                table.insert(cobra.corpo, {x = self.x, y = self.y})
-            end
+            return true
         end
-
+        return false
     end
 
     function comida:draw()
@@ -143,8 +154,7 @@ function love.update(dt)
         return
     end
 
-    cobra:update(dt)
-    comida:update(cobra)
+    cobra:update(dt, comida)
 
 end
 
