@@ -20,33 +20,6 @@ function love.load(arg)
     tela = {}
     tela.c, tela.l = lgrafico.getDimensions()
 
-    mover = {}
-    
-    function mover.w(self)
-        self.vx = 0
-        self.vy = self.vy <= 0 and -self.v or self.v
-    end
-
-    function mover.s(self)
-        self.vx = 0
-        self.vy = self.vy >= 0 and self.v or -self.v
-    end
-
-    function mover.a(self)
-        self.vx = self.vx <= 0 and -self.v or self.v
-        self.vy = 0
-    end
-
-    function mover.d(self)
-        self.vx = self.vx >= 0 and self.v or -self.v
-        self.vy = 0
-    end
-
-    mover["up"] = mover["w"]
-    mover["down"] = mover["s"]
-    mover["left"] = mover["a"]
-    mover["right"] = mover["d"]
-
     cobra = {}
     
     cobra.c = 32
@@ -59,9 +32,36 @@ function love.load(arg)
 
     cobra.corpo = {}
 
+    cobra.mover = {}
+    
+    function cobra.mover.w()
+        cobra.vx = 0
+        cobra.vy = cobra.vy <= 0 and -cobra.v or cobra.v
+    end
+
+    function cobra.mover.s()
+        cobra.vx = 0
+        cobra.vy = cobra.vy >= 0 and cobra.v or -cobra.v
+    end
+
+    function cobra.mover.a()
+        cobra.vx = cobra.vx <= 0 and -cobra.v or cobra.v
+        cobra.vy = 0
+    end
+
+    function cobra.mover.d()
+        cobra.vx = cobra.vx >= 0 and cobra.v or -cobra.v
+        cobra.vy = 0
+    end
+
+    cobra.mover["up"] = cobra.mover["w"]
+    cobra.mover["down"] = cobra.mover["s"]
+    cobra.mover["left"] = cobra.mover["a"]
+    cobra.mover["right"] = cobra.mover["d"]
+
     function cobra:controle(tecla)
-        if mover[tecla] ~= nil then
-            mover[tecla](self)
+        if self.mover[tecla] ~= nil then
+            self.mover[tecla]()
         end
     end
 
@@ -90,7 +90,6 @@ function love.load(arg)
 
         for i = 1, #self.corpo do
             if math.floor(self.x) == math.floor(self.corpo[i].x) and math.floor(self.y) == math.floor(self.corpo[i].y) then
-                print("Aqui")
                 self.x, self.y = antx, anty
                 self.vx = 0
                 self.vy = 0
