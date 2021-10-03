@@ -3,7 +3,7 @@
 
 set path="c:\Arquivos de Programas\winrar\";%path%
 
-winrar.exe a cf.zip conf.lua main.lua
+winrar.exe a cf.zip conf.lua main.lua palavra.lua cobra.lua comida.lua
 
 rename cf.zip game.love
 
