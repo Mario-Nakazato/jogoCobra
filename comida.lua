@@ -15,17 +15,17 @@ local function novo()
     comida.c = 32
 
     function comida:update(cobra)
-        if math.floor(self.x) == math.floor(cobra.x) and math.floor(self.y) == math.floor(cobra.y) and tela.ct *tela.lt > #cobra.corpo +1 then
+        if self.x == math.floor(cobra.x) and self.y == math.floor(cobra.y) and tela.ct *tela.lt > #cobra.corpo +1 then
             repeat
                 self.x = lmat.random(tela.ct -1)
                 self.y = lmat.random(tela.lt -1)
                 mudar = false
                 
-                if math.floor(self.x) == math.floor(cobra.x) and math.floor(self.y) == math.floor(cobra.y) then
+                if self.x == math.floor(cobra.x) and self.y == math.floor(cobra.y) then
                     mudar = true
                 else
                     for i = 1, #cobra.corpo do
-                        if math.floor(self.x) == math.floor(cobra.corpo[i].x) and math.floor(self.y) == math.floor(cobra.corpo[i].y) then
+                        if self.x == math.floor(cobra.corpo[i].x) and self.y == math.floor(cobra.corpo[i].y) then
                             mudar = true
                             break
                         end
@@ -40,9 +40,9 @@ local function novo()
 
     function comida:draw()
         lgrafico.setColor(rgbByte({220, 20, 60}))
-        lgrafico.rectangle("fill", math.floor(self.x) *self.c, math.floor(self.y) *self.c, self.c, self.c, 8)
+        lgrafico.rectangle("fill", self.x *self.c, self.y *self.c, self.c, self.c, 8)
         lgrafico.setColor(rgbByte({0, 0, 0}))
-        lgrafico.rectangle("line", math.floor(self.x) *self.c, math.floor(self.y) *self.c, self.c, self.c, 8)
+        lgrafico.rectangle("line", self.x *self.c, self.y *self.c, self.c, self.c, 8)
     end
 
     return comida

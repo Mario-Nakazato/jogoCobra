@@ -14,8 +14,8 @@ local function novo()
     
     cobra.c = 32
     tela.ct, tela.lt = math.floor(tela.c /cobra.c), math.floor(tela.l /cobra.c)
-    cobra.x = tela.ct /2
-    cobra.y = tela.lt /2
+    cobra.x = math.floor(tela.ct /2)
+    cobra.y = math.floor(tela.lt /2)
     cobra.v = 10
     cobra.vx = 0
     cobra.vy = 0
@@ -83,7 +83,7 @@ local function novo()
                 self.x, self.y = antx, anty
                 self.vx = 0
                 self.vy = 0
-                break --return
+                break
             end
         end
         
