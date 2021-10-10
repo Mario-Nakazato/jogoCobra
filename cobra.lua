@@ -64,17 +64,21 @@ local function novo()
         if self.x < 0 then
             self.x = 0
             self.vx = 0
+            teclou = false
         elseif self.x > tela.ct -1 then
             self.x = tela.ct -1
             self.vx = 0
+            teclou = false
         end
         
         if self.y < 0 then
             self.y = 0
             self.vy = 0
+            teclou = false
         elseif self.y > tela.lt -1 then
             self.y = tela.lt -1
             self.vy = 0
+            teclou = false
         end
         
         for i = 1, #self.corpo do
