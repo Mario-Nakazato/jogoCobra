@@ -6,8 +6,8 @@
 [wiki]:https://gamia-archive.fandom.com/wiki/Snake_(video_game)
 [love2d]:https://love2d.org/
 
-![](jogoCobra.png)
+![](jogoCobraBeta.png)
 
-![](jogoCobraCorpo.png)
+![](jogoCobra.png)
 
 #### ...

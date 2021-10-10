@@ -75,7 +75,7 @@ local function novo()
             self.y = tela.lt -1
             self.vy = 0
         end
-        --[[
+        
         for i = 1, #self.corpo do
             if math.floor(self.x) == math.floor(self.corpo[i].x) and math.floor(self.y) == math.floor(self.corpo[i].y) then
                 self.x, self.y = antx, anty
@@ -84,7 +84,7 @@ local function novo()
                 return
             end
         end
-        ]]
+        
         if math.floor(antx) ~= math.floor(self.x) or math.floor(anty) ~= math.floor(self.y) then
             if #self.corpo > 0 then
                 table.remove(self.corpo)
