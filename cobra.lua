@@ -16,7 +16,7 @@ local function novo()
     tela.ct, tela.lt = tela.c /cobra.c, tela.l /cobra.c
     cobra.x = tela.ct /2
     cobra.y = tela.lt /2
-    cobra.v = 8
+    cobra.v = 10
     cobra.vx = 0
     cobra.vy = 0
     cobra.corpo = {}
@@ -100,17 +100,21 @@ local function novo()
             if #self.corpo > 0 then
                 corpo = {x = self.corpo[#self.corpo].x, y = self.corpo[#self.corpo].y}
             else
-                corpo = {x = comida.x, y = comida.y}
+                corpo = {x = self.x, y = self.y}
             end
         end
     end
 
     function cobra:draw()
-        lgrafico.setColor(rgbByte({0, 255, 0}))
+        lgrafico.setColor(rgbByte({75, 0, 130}))
         lgrafico.rectangle("fill", math.floor(self.x) *self.c, math.floor(self.y) *self.c, self.c, self.c, 8)
-        lgrafico.setColor(rgbByte({0, 255, 0, 64}))
+        lgrafico.setColor(rgbByte({0, 0, 0}))
+        lgrafico.rectangle("line", math.floor(self.x) *self.c, math.floor(self.y) *self.c, self.c, self.c, 8)
         for i = 1, #self.corpo do
+            lgrafico.setColor(rgbByte({138, 43, 226}))
             lgrafico.rectangle("fill", math.floor(self.corpo[i].x) *self.c, math.floor(self.corpo[i].y) *self.c, self.c, self.c, 8)
+            lgrafico.setColor(rgbByte({0, 0, 0}))
+            lgrafico.rectangle("line", math.floor(self.corpo[i].x) *self.c, math.floor(self.corpo[i].y) *self.c, self.c, self.c, 8)
         end
     end
 

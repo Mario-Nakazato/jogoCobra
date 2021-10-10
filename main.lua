@@ -13,6 +13,8 @@ function love.load(arg)
 
     if arg[#arg] == "-debug" then require("mobdebug").start() end -- Debug para ZeroBrane Studio IDE Utilize; Argumento - arg esta disponivel global.
 
+    lgrafico.setBackgroundColor(rgbByte({60 ,179, 113}))
+
     cascavel = cobra.novo()
     maca = comida.novo()
 
