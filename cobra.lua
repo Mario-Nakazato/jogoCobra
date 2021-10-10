@@ -21,6 +21,7 @@ local function novo()
     cobra.vy = 0
     cobra.corpo = {}
     cobra.mover = {}
+    cobra.parede = true
     
     function cobra.mover.w()
         cobra.vx = 0
@@ -60,24 +61,20 @@ local function novo()
 
         self.x = self.x +self.vx *dt
         self.y = self.y +self.vy *dt
-        
+
         if self.x < 0 then
-            self.x = 0
-            self.vx = 0
+            self.x = self.parede and 0 or (tela.ct -1)
             teclou = false
-        elseif self.x > tela.ct -1 then
-            self.x = tela.ct -1
-            self.vx = 0
+        elseif self.x > tela.ct then
+            self.x = self.parede and (tela.ct -1) or 0
             teclou = false
         end
         
         if self.y < 0 then
-            self.y = 0
-            self.vy = 0
+            self.y = self.parede and 0 or (tela.lt -1)
             teclou = false
-        elseif self.y > tela.lt -1 then
-            self.y = tela.lt -1
-            self.vy = 0
+        elseif self.y > tela.lt then
+            self.y = self.parede and (tela.lt -1) or 0
             teclou = false
         end
         
