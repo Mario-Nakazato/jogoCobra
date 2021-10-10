@@ -48,7 +48,8 @@ local function novo()
     cobra.mover["right"] = cobra.mover["d"]
 
     function cobra:controle(tecla)
-        if self.mover[tecla] ~= nil then
+        if self.mover[tecla] ~= nil and not teclou then
+            teclou = true
             self.mover[tecla]()
         end
     end
@@ -78,14 +79,16 @@ local function novo()
         
         for i = 1, #self.corpo do
             if math.floor(self.x) == math.floor(self.corpo[i].x) and math.floor(self.y) == math.floor(self.corpo[i].y) then
+                teclou = false
                 self.x, self.y = antx, anty
                 self.vx = 0
                 self.vy = 0
-                return
+                break --return
             end
         end
         
         if math.floor(antx) ~= math.floor(self.x) or math.floor(anty) ~= math.floor(self.y) then
+            teclou = false
             if #self.corpo > 0 then
                 table.remove(self.corpo)
                 table.insert(self.corpo, 1, {x = antx, y = anty})
