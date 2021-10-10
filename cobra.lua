@@ -13,7 +13,7 @@ local function novo()
     local cobra = {}
     
     cobra.c = 32
-    tela.ct, tela.lt = tela.c /cobra.c, tela.l /cobra.c
+    tela.ct, tela.lt = math.floor(tela.c /cobra.c), math.floor(tela.l /cobra.c)
     cobra.x = tela.ct /2
     cobra.y = tela.lt /2
     cobra.v = 10
@@ -75,7 +75,7 @@ local function novo()
             self.y = tela.lt -1
             self.vy = 0
         end
-
+        --[[
         for i = 1, #self.corpo do
             if math.floor(self.x) == math.floor(self.corpo[i].x) and math.floor(self.y) == math.floor(self.corpo[i].y) then
                 self.x, self.y = antx, anty
@@ -84,7 +84,7 @@ local function novo()
                 return
             end
         end
-
+        ]]
         if math.floor(antx) ~= math.floor(self.x) or math.floor(anty) ~= math.floor(self.y) then
             if #self.corpo > 0 then
                 table.remove(self.corpo)
@@ -106,16 +106,16 @@ local function novo()
     end
 
     function cobra:draw()
-        lgrafico.setColor(rgbByte({75, 0, 130}))
-        lgrafico.rectangle("fill", math.floor(self.x) *self.c, math.floor(self.y) *self.c, self.c, self.c, 8)
-        lgrafico.setColor(rgbByte({0, 0, 0}))
-        lgrafico.rectangle("line", math.floor(self.x) *self.c, math.floor(self.y) *self.c, self.c, self.c, 8)
         for i = 1, #self.corpo do
             lgrafico.setColor(rgbByte({138, 43, 226}))
             lgrafico.rectangle("fill", math.floor(self.corpo[i].x) *self.c, math.floor(self.corpo[i].y) *self.c, self.c, self.c, 8)
             lgrafico.setColor(rgbByte({0, 0, 0}))
             lgrafico.rectangle("line", math.floor(self.corpo[i].x) *self.c, math.floor(self.corpo[i].y) *self.c, self.c, self.c, 8)
         end
+        lgrafico.setColor(rgbByte({75, 0, 130}))
+        lgrafico.rectangle("fill", math.floor(self.x) *self.c, math.floor(self.y) *self.c, self.c, self.c, 8)
+        lgrafico.setColor(rgbByte({0, 0, 0}))
+        lgrafico.rectangle("line", math.floor(self.x) *self.c, math.floor(self.y) *self.c, self.c, self.c, 8)
     end
 
     return cobra

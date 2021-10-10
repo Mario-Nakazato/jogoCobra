@@ -15,7 +15,7 @@ local function novo()
     comida.c = 32
 
     function comida:update(cobra)
-        if math.floor(self.x) == math.floor(cobra.x) and math.floor(self.y) == math.floor(cobra.y) then
+        if math.floor(self.x) == math.floor(cobra.x) and math.floor(self.y) == math.floor(cobra.y) and tela.ct *tela.lt > #cobra.corpo +1 then
             repeat
                 self.x = lmat.random(tela.ct -1)
                 self.y = lmat.random(tela.lt -1)
