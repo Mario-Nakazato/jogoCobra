@@ -10,10 +10,9 @@ require "cobra"
 require "comida"
 
 function love.load(arg)
-
     if arg[#arg] == "-debug" then require("mobdebug").start() end -- Debug para ZeroBrane Studio IDE Utilize; Argumento - arg esta disponivel global.
 
-    lgrafico.setBackgroundColor(rgbByte({60 ,179, 113}))
+    lgrafico.setBackgroundColor(rgbByte({ 60, 179, 113 }))
 
     cascavel = cobra.novo()
     maca = comida.novo()
@@ -21,24 +20,20 @@ function love.load(arg)
 end
 
 function love.update(dt)
-
     if not update then
         return
     end
 
-    cascavel:update(dt, maca)
-
+    cascavel:update(dt)
+    cascavel:updateComida(maca)
 end
 
 function love.draw()
-
     maca:draw()
     cascavel:draw()
-
 end
 
 function love.keypressed(tecla, cod, repeticao)
-
     if tecla == "f1" then
         update = not update
     elseif tecla == "f5" then
@@ -46,62 +41,44 @@ function love.keypressed(tecla, cod, repeticao)
     end
 
     cascavel:controle(tecla)
-
 end
 
 function love.keyreleased(tecla, cod)
-
-
 
 end
 
 function love.mousepressed(x, y, botao, toque, repeticao)
 
-
-
 end
 
 function love.mousereleased(x, y, botao, toque, repeticao)
-
-
 
 end
 
 function love.mousemoved(x, y, dx, dy, toque)
 
-
-
 end
 
 function love.wheelmoved(x, y)
-
-
 
 end
 
 function love.mousefocus(foco)
 
-
-
 end
 
 function love.resize(c, l)
-
-
 
 end
 
 function love.focus(foco)
 
-
-
 end
 
 function love.quit()
 
-
-
 end
+
 --[[
 function inicioContato(a, b, contato)
 
